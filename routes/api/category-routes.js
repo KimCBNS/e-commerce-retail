@@ -3,10 +3,71 @@ const { Category, Product } = require('../../models');
 
 // The `/api/categories` endpoint
 
-router.get('/', (req, res) => {
+router.get('/cat', async(req, res) => {
   // find all categories
   // be sure to include its associated Products
+  try {
+console.log("this is the route");
+    const allCategorieswProducts = await Category.findAll({
+      attributes: ['id', 'category_name'],
+      include: [
+        {
+          model: Product,
+          attributes: ['product_name'], // display product names in the category
+        },
+      ],
+    });
+console.log(allCategorieswProducts);
+
+    const categoriesReturned = allCategorieswProducts.map((allCategorieswProducts) =>
+      allCategorieswProducts.get({ plain: true })
+    );
+    //console.log(categoriesReturned);
+
+    res.json(categoriesReturned);  // Return JSON data
+
+  
+    
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(err);
+  };
 });
+
+
+
+router.get('/', async(req, res) => {
+  // find all categories
+  // be sure to include its associated Products
+  try {
+console.log("this is the route");
+    const allCategorieswProducts = await Category.findAll({
+      attributes: ['id', 'category_name'],
+      include: [
+        {
+          model: Product,
+          attributes: ['product_name'], // display product names in the category
+        },
+      ],
+    });
+
+
+    const categoriesReturned = allCategorieswProducts.map((allCategorieswProducts) =>
+      allCategorieswProducts.get({ plain: true })
+    );
+    //console.log(categoriesReturned);
+
+    res.json(categoriesReturned);  // Return JSON data
+
+  
+    
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(err);
+  };
+});
+
+
 
 router.get('/:id', (req, res) => {
   // find one category by its `id` value
