@@ -69,26 +69,26 @@ router.get('/:id', async (req, res) => {
 
 
 
-router.post('/', async(req, res) => {
+router.post('/', async (req, res) => {
   // create a new category
- 
-    console.log('post process starting')
-    console.log(req.body)
-    try {
-      const { category_name } = req.body;
-      
-        
-  
-  
-      // Create an entry in the category table just need the category name
-      await Category.create(req.body);
-  
-      res.status(200).json({ message: 'New category created' });
-    } catch (err) {
-      console.error(err);
-      res.status(500).json({ message: 'Internal server error' });
-    }
-  });
+
+  console.log('post process starting')
+  console.log(req.body)
+  try {
+    const { category_name } = req.body;
+
+
+
+
+    // Create an entry in the category table just need the category name
+    await Category.create(req.body);
+
+    res.status(200).json({ message: 'New category created' });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
 
 
 
@@ -100,7 +100,7 @@ router.put('/:id', async (req, res) => {
   try {
 
     console.log("this is the individual category to be updated");
-    
+
     // this gets the info from the insomnia post body
     const { category_name } = req.body;
 
@@ -126,14 +126,7 @@ router.put('/:id', async (req, res) => {
 });
 
 
-
-
-
-
-
-
-
-router.delete('/:id', async(req, res) => {
+router.delete('/:id', async (req, res) => {
   // delete a category by its `id` value
 
 
